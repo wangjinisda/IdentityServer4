@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5461C61B-B06E-46BA-B206-925B660BE727}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IdentityServer.UnitTests", "test\IdentityServer.UnitTests\IdentityServer.UnitTests.xproj", "{D95E6C3E-1906-4323-93D0-490A6A2042CD}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IdentityServer.IntegrationTests", "test\IdentityServer.IntegrationTests\IdentityServer.IntegrationTests.xproj", "{8601FDBB-D19A-4757-8E07-9DA7E43EAC73}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ng2-admin", "src\ng2-admin\ng2-admin.xproj", "{269B12CE-22FC-4595-8A59-9AF8D635D255}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{8601FDBB-D19A-4757-8E07-9DA7E43EAC73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8601FDBB-D19A-4757-8E07-9DA7E43EAC73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8601FDBB-D19A-4757-8E07-9DA7E43EAC73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{269B12CE-22FC-4595-8A59-9AF8D635D255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{269B12CE-22FC-4595-8A59-9AF8D635D255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{269B12CE-22FC-4595-8A59-9AF8D635D255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{269B12CE-22FC-4595-8A59-9AF8D635D255}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +57,6 @@ Global
 		{784B3C88-30FA-415D-B99E-584063064508} = {5461C61B-B06E-46BA-B206-925B660BE727}
 		{D95E6C3E-1906-4323-93D0-490A6A2042CD} = {45C22EDD-91B1-4AEF-8620-77F4E3E7C544}
 		{8601FDBB-D19A-4757-8E07-9DA7E43EAC73} = {45C22EDD-91B1-4AEF-8620-77F4E3E7C544}
+		{269B12CE-22FC-4595-8A59-9AF8D635D255} = {5461C61B-B06E-46BA-B206-925B660BE727}
 	EndGlobalSection
 EndGlobal
