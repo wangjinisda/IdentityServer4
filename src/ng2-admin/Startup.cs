@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using App.Web.IdentityServer4;
 using IdentityServer4.Validation;
-
+using ng2_admin.C_.Middleware.DependencyInjection;
+using ng2_admin.C_.Middleware;
 
 namespace App.Web
 {
@@ -35,6 +36,8 @@ namespace App.Web
             .AddSecretValidator<PrivateKeyJwtSecretValidator>()
             .AddTestUsers(TestUsers.Users);
 
+            services.AddCtrlServices();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +51,8 @@ namespace App.Web
             }
 
             app.UseIdentityServer();
+
+            app.UseCtrlServer();
 
             app.UseDefaultFiles();
 

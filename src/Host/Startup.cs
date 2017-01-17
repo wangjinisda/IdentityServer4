@@ -36,7 +36,7 @@ namespace Host
             .AddSecretValidator<PrivateKeyJwtSecretValidator>()
             .AddTestUsers(TestUsers.Users);
 
-            services.AddMvc();
+            //services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
