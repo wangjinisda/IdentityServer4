@@ -6,6 +6,7 @@ var loginModel_1 = require("./models/loginModel");
 var router_1 = require("@angular/router");
 var Login = (function () {
     function Login(route, router, fb, service) {
+        var _this = this;
         this.route = route;
         this.router = router;
         this.service = service;
@@ -20,10 +21,11 @@ var Login = (function () {
         this.loginModel.Username = this.email.value;
         this.loginModel.Password = this.password.value;
         this.loginModel.RememberLogin = true;
-        this.loginModel.ReturnUrl = this.password.value;
+        this.loginModel.ReturnUrl = '';
         route.queryParams.subscribe(function (val) {
-            console.log(val['ReturnUrl']);
-            console.log(router);
+            _this.loginModel.ReturnUrl = val['returnUrl'];
+            console.log(val['returnUrl']);
+            //console.log(router);
         });
     }
     Login.prototype.onSubmit = function (values) {
