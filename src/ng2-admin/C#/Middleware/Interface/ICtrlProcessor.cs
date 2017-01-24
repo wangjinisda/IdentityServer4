@@ -8,6 +8,8 @@ namespace ng2_admin.C_.Middleware.Interface
 {
     public interface ICtrlProcessor
     {
-        Task<ICtrlResult> ProcessAsync(HttpContext context);
+        Task<ICtrlResult> ProcessAsync();
+
+        HttpContext CurrentContext { get; set; }
     }
 }

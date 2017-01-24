@@ -19,14 +19,21 @@ namespace ng2_admin.C_.Middleware
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext context, ICtrlRouter router)
+
+        /// <summary>
+        /// find a controller for each route
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="router"></param>
+        /// <returns></returns>
+        public async Task Invoke(HttpContext context, ICtrlRouter router) 
         {
             try
             {
                 var ctrl = router.Find(context);
                 if (ctrl != null)
                 {
-                    await ctrl.ProcessAsync(context);
+                    await ctrl.ProcessAsync();
                 }
             }
             catch (Exception ex)

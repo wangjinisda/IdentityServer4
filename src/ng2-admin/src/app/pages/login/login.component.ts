@@ -5,13 +5,14 @@ import { LoginModuleService } from './login.service';
 import { LoginModel } from './models/loginModel';
 
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'login',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./login.scss')],
   template: require('./login.html'),
-  providers:[LoginModuleService]
+  providers: [LoginModuleService, Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 export class Login {
 
@@ -25,6 +26,7 @@ export class Login {
       private route: ActivatedRoute,
       private router: Router,
       fb: FormBuilder,
+      private location: Location,
       private service: LoginModuleService) {
 
     this.form = fb.group({
@@ -34,9 +36,6 @@ export class Login {
 
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
-
-    this.loginModel.Username = this.email.value;
-    this.loginModel.Password = this.password.value;
     this.loginModel.RememberLogin = true;
     this.loginModel.ReturnUrl = '';
 
@@ -48,12 +47,18 @@ export class Login {
     
   }
 
-  public onSubmit(values:Object):void {
+  public onSubmit(values: Object): void {
+
+    this.loginModel.Username = this.email.value;
+    this.loginModel.Password = this.password.value;
+
     this.submitted = true;
     if (this.form.valid) {
         // your code goes here
-        this.service.loginExecute(this.loginModel).subscribe(val => {
+        this.service.loginExecute(this.loginModel)
+            .subscribe((val: LoginModel) => {
             console.log(val);
+            window.location.href = val.ReturnUrl;
         });
     }
   }

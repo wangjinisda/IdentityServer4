@@ -8,10 +8,14 @@ using ng2_admin.C_.Middleware.Services.Account;
 using ng2_admin.C_.Middleware.Interface;
 using ng2_admin.C_.Middleware.Model.Consent;
 using Newtonsoft.Json;
+using ng2_admin.C_.Middleware.Abstract;
 
 namespace ng2_admin.C_.Middleware.Services
 {
-    public class ConsentCtrlProcessor : ICtrlProcessor
+    /// <summary>
+    /// consent when login successful
+    /// </summary>
+    public class ConsentCtrlProcessor : BaseProcessor
     {
         private readonly ILogger _logger;
         private readonly ConsentService _consent;
@@ -26,22 +30,9 @@ namespace ng2_admin.C_.Middleware.Services
             _consent = new ConsentService(interaction, clientStore, resourceStore, logger);
         }
 
-        async Task<ICtrlResult> ICtrlProcessor.ProcessAsync(HttpContext context)
+        internal async Task<ICtrlResult> ConsentWithPostWay()
         {
-            if (context.Request.Method == "POST")
-            {
-                return await ConsentWithPostWay(context);
-            }
-            else if (context.Request.Method == "GET")
-            {
-                return await ConsentWithGetWay(context);
-            }
-
-            return null;
-        }
-
-        internal async Task<ICtrlResult> ConsentWithPostWay(HttpContext context)
-        {
+            var context = this.CurrentContext;
             using (var reader = new StreamReader(context.Request.Body))
             {
                 var jsonStr = reader.ReadToEnd();
@@ -53,8 +44,9 @@ namespace ng2_admin.C_.Middleware.Services
             return null;
         }
 
-        internal async Task<ICtrlResult> ConsentWithGetWay(HttpContext context)
+        internal async Task<ICtrlResult> ConsentWithGetWay()
         {
+            var context = this.CurrentContext;
             using (var reader = new StreamReader(context.Request.Body))
             {
                 var jsonStr = reader.ReadToEnd();
@@ -80,5 +72,22 @@ namespace ng2_admin.C_.Middleware.Services
             return null;
         }
 
+        /// <summary>
+        /// route to specific func. base on request type
+        /// </summary>
+        /// <returns></returns>
+        public override async Task<ICtrlResult> ProcessAsync()
+        {
+            if (this.CurrentContext.Request.Method == "POST")
+            {
+                return await ConsentWithPostWay();
+            }
+            else if (this.CurrentContext.Request.Method == "GET")
+            {
+                return await ConsentWithGetWay();
+            }
+
+            return null;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace App.Web.IdentityServer4
         {
             public const string Login = "/#/login";
             public const string Logout = "/#/logout";
-            public const string Consent = "/consent";
+            public const string Consent = "/#/consent";
             public const string Error = "/home/error";
         }
     }

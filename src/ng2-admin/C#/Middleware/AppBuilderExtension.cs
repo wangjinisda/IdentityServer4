@@ -9,6 +9,11 @@ namespace ng2_admin.C_.Middleware
 {
     public static class AppBuilderExtension
     {
+        /// <summary>
+        /// IApplicationBuilder extension for IdentityServerCtrlMiddleware
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseCtrlServer(this IApplicationBuilder app)
         {
             app.UseMiddleware<IdentityServerCtrlMiddleware>();

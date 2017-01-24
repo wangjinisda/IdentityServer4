@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -14,13 +12,14 @@ using ng2_admin.C_.Middleware.Model.Login;
 using ng2_admin.C_.Middleware.Services.Account;
 using Newtonsoft.Json;
 using IdentityServer4.Stores;
+using ng2_admin.C_.Middleware.Abstract;
 
 namespace ng2_admin.C_.Middleware.Services
 {
     /// <summary>
     /// use this Processor when url is '/LoginAction/'
     /// </summary>
-    public class LoginCtrlProcessor : ICtrlProcessor
+    public class LoginCtrlProcessor : BaseProcessor
     {
         private readonly ILogger _logger;
         private readonly TestUserStore _users;
@@ -35,6 +34,7 @@ namespace ng2_admin.C_.Middleware.Services
         {
             _logger = logger;
             _users = users ?? new TestUserStore(TestUsers.Users);
+            _interaction = interaction;
             _account = new ModelService(interaction, clientStore);
         }
 
@@ -43,15 +43,15 @@ namespace ng2_admin.C_.Middleware.Services
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        async Task<ICtrlResult> ICtrlProcessor.ProcessAsync(HttpContext context)
+        public override async Task<ICtrlResult> ProcessAsync()
         {
-            if (context.Request.Method == "POST")
+            if (this.CurrentContext.Request.Method == "POST")
             {
-                return await LoginWithPostWay(context);
+                return await LoginWithPostWay();
             }
-            else if (context.Request.Method == "GET")
+            else if (this.CurrentContext.Request.Method == "GET")
             {
-                return await LoginWithGetWay(context);
+                return await LoginWithGetWay();
             }
 
             return null;
@@ -63,8 +63,9 @@ namespace ng2_admin.C_.Middleware.Services
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        internal async Task<ICtrlResult> LoginWithPostWay(HttpContext context)
+        internal async Task<ICtrlResult> LoginWithPostWay()
         {
+            var context = this.CurrentContext;
             using (var reader =  new StreamReader(context.Request.Body))
             {
                 var jsonStr = reader.ReadToEnd();
@@ -90,12 +91,12 @@ namespace ng2_admin.C_.Middleware.Services
                     await context.Authentication.SignInAsync(user.SubjectId, user.Username, props);
 
                     // make sure the returnUrl is still valid, and if yes - redirect back to authorize endpoint
-                    if (_interaction.IsValidReturnUrl(loginModel.ReturnUrl))
+                    if (!_interaction.IsValidReturnUrl(loginModel.ReturnUrl))
                     {
-                        context.Response.Redirect(loginModel.ReturnUrl);
+                        loginModel.ReturnUrl = "";
                     }
-
-                    context.Response.Redirect("~/");
+                    
+                    return await CtrlView(loginModel);
                 }
 
                 var vm = await _account.BuildLoginViewModelAsync(loginModel.ReturnUrl, context);
@@ -109,8 +110,10 @@ namespace ng2_admin.C_.Middleware.Services
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        internal async Task<ICtrlResult> LoginWithGetWay(HttpContext context)
+        internal async Task<ICtrlResult> LoginWithGetWay()
         {
+            var context = this.CurrentContext;
+
             return null;
         }
 

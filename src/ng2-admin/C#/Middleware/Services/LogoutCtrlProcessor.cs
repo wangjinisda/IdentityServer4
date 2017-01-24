@@ -1,15 +1,13 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ng2_admin.C_.Middleware.Interface;
+using ng2_admin.C_.Middleware.Abstract;
 
 namespace ng2_admin.C_.Middleware.Services
 {
-    public class LogoutCtrlProcessor : ICtrlProcessor
+    public class LogoutCtrlProcessor : BaseProcessor
     {
         private readonly ILogger _logger;
 
@@ -18,7 +16,7 @@ namespace ng2_admin.C_.Middleware.Services
             _logger = logger;
         }
 
-        Task<ICtrlResult> ICtrlProcessor.ProcessAsync(HttpContext context)
+        public override Task<ICtrlResult> ProcessAsync()
         {
             return null;
         }

@@ -42,7 +42,8 @@ namespace ng2_admin.C_.Middleware.Services
                     var ctrlAction = _pathToActionMap[key];
                     _logger.LogDebug("Request path {path} matched to endpoint type {endpoint}", context.Request.Path, ctrlAction);
                     var mapping = _mappings.LastOrDefault(x => x.CtrlAction == ctrlAction);
-                    return context.RequestServices.GetService(mapping.Handler) as ICtrlProcessor;
+                    var processor =  context.RequestServices.GetService(mapping.Handler) as ICtrlProcessor;
+                    return processor.SetCurrentHttpConetext(context);
                 }
             }
 

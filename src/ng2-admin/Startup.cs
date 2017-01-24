@@ -25,6 +25,7 @@ namespace App.Web
                 {
                     options.UserInteraction.LoginUrl = UIConstantsExtesions.DefaultRoutePathsCustom.Login;
                     options.UserInteraction.LogoutUrl = UIConstantsExtesions.DefaultRoutePathsCustom.Logout;
+                    options.UserInteraction.ConsentUrl = UIConstantsExtesions.DefaultRoutePathsCustom.Consent;
                     //options.Authentication.FederatedSignOutPaths.Add("/signout-callback-idsrv3");
                 })
             .AddInMemoryClients(Clients.Get())
@@ -60,7 +61,8 @@ namespace App.Web
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                return;
+                await context.Response.WriteAsync("{'test': Hello World!}");
             });
         }
     }

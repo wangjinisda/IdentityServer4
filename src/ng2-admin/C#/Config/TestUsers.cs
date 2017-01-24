@@ -13,7 +13,7 @@ namespace App.Web.IdentityServer4
     {
         public static List<TestUser> Users = new List<TestUser>
         {
-            new TestUser{SubjectId = "818727", Username = "alice", Password = "alice", 
+            new TestUser{SubjectId = "818727", Username = "98@qq.com", Password = "98@qq.com", 
                 Claims = 
                 {
                     new Claim(JwtClaimTypes.Name, "Alice Smith"),
@@ -24,7 +24,7 @@ namespace App.Web.IdentityServer4
                     new Claim(JwtClaimTypes.WebSite, "http://alice.com")
                 }
             },
-            new TestUser{SubjectId = "88421113", Username = "bob", Password = "bob", 
+            new TestUser{SubjectId = "88421113", Username = "984@qq.com", Password = "984@qq.com", 
                 Claims = 
                 {
                     new Claim(JwtClaimTypes.Name, "Bob Smith"),
